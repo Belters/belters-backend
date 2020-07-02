@@ -1,11 +1,10 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'belter',
-  host: 'localhost',
-  database: 'belter_database',
-  password: 'belter',
-  port: 5432,
-})
+                       connectionString: process.env.DATABASE_URL,
+                       ssl: {
+                         rejectUnauthorized: false
+                       }
+                     });
 
 const getUsers = (request, response) => {
   pool.query('select * from users order by id asc', (error, results) => {
